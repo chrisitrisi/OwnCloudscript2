@@ -1,12 +1,16 @@
 import subprocess
 import os
+import datetime
 
 # WebDAV-Server-Details
 username = "christopher.schieszl"
 password = "60145720210430"
 base_url = "https://cloud.bulme.at/remote.php/webdav/"
-folder_name = "ownCloudCloudUploads"
+currentDate = datetime.datetime.now()  # Corrected typo here
+folder_name = "Data-Upload%20via%20Script%20" + currentDate.strftime("%d.%m.%Y.%H:%M")
 file_path = r"C:\Users\chris\OneDrive\Desktop\Private\owncloud"
+
+
 
 
 # 1. Ordner auf dem WebDAV-Server erstellen
