@@ -1,16 +1,26 @@
 import subprocess
 import os
 import datetime
+from tkinter import filedialog
+import tkinter as tk
+
+
+
 
 # WebDAV-Server-Details
-username = "christopher.schieszl"
-password = "60145720210430"
+username = input("Username:(Format: vorname.nachname): ")
+password = input("Password:")
 base_url = "https://cloud.bulme.at/remote.php/webdav/"
 currentDate = datetime.datetime.now()  # Corrected typo here
-folder_name = "Data-Upload%20via%20Script%20" + currentDate.strftime("%d.%m.%Y.%H:%M")
-file_path = r"C:\Users\chris\OneDrive\Desktop\Private\owncloud"
+folder_name = "Data-Upload%20via%20Script%20" + currentDate.strftime("%d.%m.%Y-%H:%M")
 
 
+# Funktion für Ordnerauswahl
+def select_folder():
+    root = tk.Tk()
+    root.withdraw()  # Versteckt das Hauptfenster
+    folder_selected = filedialog.askdirectory(title="Ordner zum Hochladen auswählen")
+    return folder_selected if folder_selected else None
 
 
 # 1. Ordner auf dem WebDAV-Server erstellen
@@ -63,5 +73,12 @@ def upload_files_to_webdav(local_dir, remote_dir):
 
 # Hauptprogramm
 if __name__ == "__main__":
-    create_webdav_folder()
-    upload_files_to_webdav(file_path, folder_name)
+    # Ordnerauswahl durch Benutzer
+    selected_path = select_folder()
+    if selected_path:
+        print(f"Ausgewählter Ordner = {selected_path}")
+        file_path = selected_path
+        create_webdav_folder()
+        upload_files_to_webdav(file_path, folder_name)
+    else:
+        print("Keine Ordnerauswahl getroffen. Programm wird beendet.")
