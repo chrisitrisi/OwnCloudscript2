@@ -12,7 +12,12 @@ username = input("Username:(Format: vorname.nachname): ")
 password = input("Password:")
 base_url = "https://cloud.bulme.at/remote.php/webdav/"
 currentDate = datetime.datetime.now()  # Corrected typo here
-folder_name = "Data-Upload%20via%20Script%20" + currentDate.strftime("%d.%m.%Y-%H:%M")
+user_input_folder_name = input("Folder Name: ")
+folder_name = (
+    user_input_folder_name if user_input_folder_name != ""
+    else "Data-Upload%20via%20Script%20" + currentDate.strftime("%d.%m.%Y-%H:%M")
+)
+
 
 
 # Funktion für Ordnerauswahl
